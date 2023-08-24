@@ -8,16 +8,17 @@
   </head>
   <body>
     <div id="app">
-      <span>
-        welcome {{greeting}} ({{greeting.length}})
-      </span>
+      <button :class="active?'text-green':'text-red'" @click="toggle">
+        click me
+      </button>
+      <!-- we can use classes dynamically by v-bind class -->
     </div>
 
     <script>
       Vue.createApp({
         data() {
           return {
-            greeting: 'seif',
+            active: true, // set the state of active to true
           }
         },
 
@@ -26,7 +27,22 @@
             this.greeting = 'new name'
           }, 3000)
         },
+
+        //method object contain all functions needed
+        methods: {
+          toggle() {
+            this.active = !this.active
+          },
+        },
       }).mount('#app')
     </script>
   </body>
+  <style>
+    .text-green {
+      color: green;
+    }
+    .text-red {
+      color: red;
+    }
+  </style>
 </html>
