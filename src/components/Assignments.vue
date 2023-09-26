@@ -2,8 +2,16 @@
   <section class="">
     <h1>assignments</h1>
     <div>
-      <Inprogress :assignments="assignments" :title="'in progress'" />
-      <Completed :assignments="assignments" :title="'completd'" />
+      <Inprogress
+        @toggleAssignment="toggleAssignment"
+        :assignments="assignments"
+        :title="'in progress'"
+      />
+      <Completed
+        @toggleAssignment="toggleAssignment"
+        :assignments="assignments"
+        :title="'completed'"
+      />
     </div>
   </section>
 </template>
@@ -21,6 +29,16 @@ export default {
         { id: 2, title: 'do sports', completed: true },
       ],
     }
+  },
+  methods: {
+    toggleAssignment(assignment) {
+      this.assignments.forEach((assign, index) => {
+        if (assign.id == assignment.id) {
+          console.log(index)
+          this.assignments[index].completed = !this.assignments[index].completed
+        }
+      })
+    },
   },
 }
 </script>

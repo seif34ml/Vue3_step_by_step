@@ -9,7 +9,9 @@
         class="flex justify-around items-center mx-1 py-2"
         :key="assignment.id"
       >
-        <label :for="assignment.id">{{ assignment.title }}</label>
+        <label @click="toggleAssignment(assignment)" :for="assignment.id">
+          {{ assignment.title }}
+        </label>
         <input
           class="cursor-pointer"
           type="checkbox"
@@ -37,7 +39,12 @@ export default {
       required: true,
     },
   },
-
+  methods: {
+    toggleAssignment(assignment) {
+      console.log('ghghg')
+      this.$emit('toggleAssignment', assignment)
+    },
+  },
   computed: {
     getCompletedAssignments() {
       return this.assignments.filter((assignment) => {
