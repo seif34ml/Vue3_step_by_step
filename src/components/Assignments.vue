@@ -13,6 +13,41 @@
         :title="'completed'"
       />
     </div>
+
+    <div class="flex flex-col items-start py-4 border mt-4 px-2">
+      <span>Add new Task</span>
+      <input
+        placeholder="type new assignment"
+        v-model="assignmentText"
+        type="text"
+        name="assign"
+        id="assign"
+        class="border rounded-md"
+      />
+      <div class="flex my-2">
+        <input
+          class="border rounded-md mr-2"
+          type="text "
+          name="tag"
+          id="tag"
+          v-model="tag"
+        />
+        <input
+          type="checkbox"
+          name="completed"
+          id="completed"
+          v-model="completed"
+        />
+      </div>
+      <input
+        type="submit"
+        @click="addAssignment"
+        value="add"
+        class="bg-blue-500 text-white py-2 px-4 cursor-pointer"
+        :disabled="tag == '' || assignmentText == ''"
+        :class="{ 'bg-gray-500': tag == '' || assignmentText == '' }"
+      />
+    </div>
   </section>
 </template>
 <script>
@@ -30,6 +65,9 @@ export default {
         { id: 3, title: 'do homework', completed: true, tag: 'science' },
         { id: 4, title: 'do homework search', completed: true, tag: 'science' },
       ],
+      tag: '',
+      assignmentText: '',
+      completed: false,
     }
   },
   methods: {
@@ -40,6 +78,17 @@ export default {
           this.assignments[index].completed = !this.assignments[index].completed
         }
       })
+    },
+    addAssignment() {
+      this.assignments.push({
+        id: this.assignments.length + 1,
+        title: this.assignmentText,
+        completed: this.completed,
+        tag: this.tag,
+      })
+      this.tag = ''
+      this.assignmentText = ''
+      this.completed = false
     },
   },
 }
