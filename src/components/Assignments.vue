@@ -25,8 +25,10 @@ export default {
   data() {
     return {
       assignments: [
-        { id: 1, title: 'wake up', completed: true },
-        { id: 2, title: 'do sports', completed: true },
+        { id: 1, title: 'wake up', completed: true, tag: 'personal' },
+        { id: 2, title: 'do sports', completed: true, tag: 'work' },
+        { id: 3, title: 'do homework', completed: true, tag: 'science' },
+        { id: 4, title: 'do homework search', completed: true, tag: 'science' },
       ],
     }
   },
