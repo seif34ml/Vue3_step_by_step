@@ -1,6 +1,7 @@
 <template>
   <section class="border-2 border-black mt-4">
-    <h1 class="mt-2 capitalize">{{ title }}</h1>
+    <slot />
+
     <div
       class="w-1/4 mx-auto mt-4 border-2 border-dotted border-black divide-y mb-2"
     >

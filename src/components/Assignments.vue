@@ -2,16 +2,21 @@
   <section class="">
     <h1>assignments</h1>
     <div>
-      <Inprogress
+      <inprogress
         @toggleAssignment="toggleAssignment"
         :assignments="assignments"
-        :title="'in progress'"
-      />
-      <Completed
+      >
+        <h1>in progress</h1>
+      </inprogress>
+      <completed
         @toggleAssignment="toggleAssignment"
         :assignments="assignments"
-        :title="'completed'"
-      />
+      >
+        <h1>completed</h1>
+        <button :slot-scope="'hide'">
+          X
+        </button>
+      </completed>
       <new-assignment-form-vue
         :assignmentText="assignmentText"
         @update:assignmentText="assignmentText = $event"
@@ -54,6 +59,7 @@ export default {
         }
       })
     },
+
     addAssignment() {
       this.assignments.push({
         id: this.assignments.length + 1,
