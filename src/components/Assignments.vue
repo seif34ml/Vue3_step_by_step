@@ -12,40 +12,14 @@
         :assignments="assignments"
         :title="'completed'"
       />
-    </div>
-
-    <div class="flex flex-col items-start py-4 border mt-4 px-2">
-      <span>Add new Task</span>
-      <input
-        placeholder="type new assignment"
-        v-model="assignmentText"
-        type="text"
-        name="assign"
-        id="assign"
-        class="border rounded-md"
-      />
-      <div class="flex my-2">
-        <input
-          class="border rounded-md mr-2"
-          type="text "
-          name="tag"
-          id="tag"
-          v-model="tag"
-        />
-        <input
-          type="checkbox"
-          name="completed"
-          id="completed"
-          v-model="completed"
-        />
-      </div>
-      <input
-        type="submit"
-        @click="addAssignment"
-        value="add"
-        class="bg-blue-500 text-white py-2 px-4 cursor-pointer"
-        :disabled="tag == '' || assignmentText == ''"
-        :class="{ 'bg-gray-500': tag == '' || assignmentText == '' }"
+      <new-assignment-form-vue
+        :assignmentText="assignmentText"
+        @update:assignmentText="assignmentText = $event"
+        :tag="tag"
+        @update:tag="tag = $event"
+        :completed="completed"
+        @update:completed="completed = $event"
+        @addAssignment="addAssignment"
       />
     </div>
   </section>
@@ -53,10 +27,11 @@
 <script>
 import Completed from './Completed.vue'
 import Inprogress from './Inprogress.vue'
+import NewAssignmentFormVue from './NewAssignmentForm.vue'
 
 export default {
   name: 'Assignments-vue',
-  components: { Inprogress, Completed },
+  components: { Inprogress, Completed, NewAssignmentFormVue },
   data() {
     return {
       assignments: [
