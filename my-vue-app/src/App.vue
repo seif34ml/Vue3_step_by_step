@@ -5,10 +5,17 @@ import { RouterLink, RouterView } from 'vue-router'
 
 <template>
   <div>
-    <router-link :to="{ path: `/homemmm` }">
-      Welcome
-    </router-link>
-    <router-link to="/abouthhh">About Us</router-link>
+    <div
+      class="flex justify-between items-center"
+      style="justify-content: space-between;"
+    >
+      <router-link class="mx-2" :to="{ path: `/homemmm` }">
+        Welcome
+      </router-link>
+      <router-link class="mx-2" to="/abouthhh">About Us</router-link>
+      <router-link class="mx-2" to="/assignments">Assignments</router-link>
+    </div>
+
     <a href="https://vitejs.dev" target="_blank">
       <img src="/vite.svg" class="logo" alt="Vite logo" />
     </a>
