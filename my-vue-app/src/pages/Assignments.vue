@@ -7,13 +7,15 @@
     @toggleAssignment="toggleAssignment"
     :assignments="assignments"
   />
+  <create-assignment @addAssignment="addAssignment" />
 </template>
 
 <script>
 import CompletedAssignment from './ComputedAssignment.vue'
+import CreateAssignment from './CreateAssignment.vue'
 import IncompletedAssignment from './IncompletedAssignment.vue'
 export default {
-  components: { CompletedAssignment, IncompletedAssignment },
+  components: { CompletedAssignment, IncompletedAssignment, CreateAssignment },
   name: 'Assignments',
   props: { assignments: Array },
   data() {
@@ -31,6 +33,13 @@ export default {
         if (assign.id == assignment.id) {
           this.assignments[index].complete = !this.assignments[index].complete
         }
+      })
+    },
+    addAssignment(name) {
+      this.assignments.push({
+        name: name,
+        id: this.assignments.length + 1,
+        complete: false,
       })
     },
   },
