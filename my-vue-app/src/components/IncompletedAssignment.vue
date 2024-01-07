@@ -1,18 +1,10 @@
 <template>
   <section v-show="assignments.length">
-    <div class="flex justify-center gap-2 my-4">
-      <span
-        :class="[
-          { 'block p-2 border': true },
-          { 'bg-blue-300': currenTag == tag },
-        ]"
-        v-for="(tag, index) in tags"
-        :key="index"
-        @click="currenTag = tag"
-      >
-        {{ tag }}
-      </span>
-    </div>
+    <Tags
+      @change="currentTag = tag"
+      :currentTag="currentTag"
+      :assignments="assignments"
+    />
     <!-- using v-show that dynamically test the v-show if true then display -->
     <h2 class="font-bold mb-2">InComplete</h2>
 
@@ -34,12 +26,14 @@
 </template>
 
 <script>
+import Tags from './Tags.vue'
 export default {
   name: 'incompletedAssignment',
+  components: { Tags },
   props: { assignments: Array },
   data() {
     return {
-      currenTag: 'all',
+      currentTag: 'all',
     }
   },
   computed: {
@@ -47,11 +41,11 @@ export default {
       return ['all', ...new Set(this.assignments.map((a) => a.tag))]
     },
     getFilteredAssignment() {
-      if (this.currenTag == 'all') {
+      if (this.currentTag == 'all') {
         return this.assignments
       } else {
         return this.assignments.filter((assignment) => {
-          if (assignment.tag === this.currenTag) {
+          if (assignment.tag === this.currentTag) {
             return true
           }
         })
