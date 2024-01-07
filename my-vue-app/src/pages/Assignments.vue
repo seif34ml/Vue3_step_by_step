@@ -1,11 +1,11 @@
 <template>
   <completed-assignment
     @toggleAssignment="toggleAssignment"
-    :assignments="assignments"
+    :assignments="assignments.filter((assignment) => assignment.complete)"
   />
   <incompleted-assignment
     @toggleAssignment="toggleAssignment"
-    :assignments="assignments"
+    :assignments="assignments.filter((assignment) => !assignment.complete)"
   />
   <create-assignment @addAssignment="addAssignment" />
 </template>
@@ -21,9 +21,9 @@ export default {
   data() {
     return {
       assignments: [
-        { name: 'Finish project', complete: false, id: 1 },
-        { name: 'Read Chapter 4', complete: false, id: 2 },
-        { name: 'Turn in Homework', complete: false, id: 3 },
+        { name: 'Finish project', complete: false, id: 1, tag: 'math' },
+        { name: 'Read Chapter 4', complete: false, id: 2, tag: 'science' },
+        { name: 'Turn in Homework', complete: false, id: 3, tag: 'randoms' },
       ],
     }
   },

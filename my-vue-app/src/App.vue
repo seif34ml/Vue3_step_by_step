@@ -15,13 +15,14 @@ import { RouterLink, RouterView } from 'vue-router'
       <router-link class="mx-2" to="/abouthhh">About Us</router-link>
       <router-link class="mx-2" to="/assignments">Assignments</router-link>
     </div>
-
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
+    <div class="flex justify-center">
+      <a href="https://vitejs.dev" target="_blank">
+        <img src="/vite.svg" class="logo" alt="Vite logo" />
+      </a>
+      <a href="https://vuejs.org/" target="_blank">
+        <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
+      </a>
+    </div>
   </div>
   <router-view></router-view>
 </template>

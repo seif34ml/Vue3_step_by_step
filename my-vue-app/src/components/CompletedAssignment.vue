@@ -1,16 +1,29 @@
 <template>
-  <section v-show="completedAssignments.length">
+  <section v-show="assignments.length">
+    <div class="flex justify-center gap-2 my-4">
+      <span
+        :class="[
+          { 'block p-2 border': true },
+          { 'bg-blue-300': currenTag == tag },
+        ]"
+        v-for="(tag, index) in tags"
+        :key="index"
+        @click="currenTag = tag"
+      >
+        {{ tag }}
+      </span>
+    </div>
     <!-- using v-show that dynamically test the v-show if true then display -->
-    <h2 class="font-bold mb-2">completed</h2>
+    <h2 class="font-bold mb-2">In Progress</h2>
 
-    <ul>
-      <li v-for="assignment in completedAssignments" :key="assignment.id">
+    <ul class="mb-4">
+      <li v-for="assignment in getFilteredAssignment" :key="assignment.id">
         <!-- using v-for as to loop over an array creating ui for any looped data -->
         <label>
           {{ assignment.name }}
 
           <input
-            @click="toggleAssignment(assignment)"
+            @click="$emit('toggleAssignment', assignment)"
             type="checkbox"
             v-model="assignment.complete"
           />
@@ -22,16 +35,28 @@
 
 <script>
 export default {
-  name: 'CompletedAssignment',
+  name: 'incompletedAssignment',
   props: { assignments: Array },
-  methods: {
-    toggleAssignment(assignment) {
-      this.$emit('toggleAssignment', assignment)
-    },
+  data() {
+    return {
+      currenTag: 'all',
+    }
   },
+
   computed: {
-    completedAssignments() {
-      return this.assignments.filter((assignment) => assignment.complete)
+    tags() {
+      return ['all', ...new Set(this.assignments.map((a) => a.tag))]
+    },
+    getFilteredAssignment() {
+      if (this.currenTag == 'all') {
+        return this.assignments
+      } else {
+        return this.assignments.filter((assignment) => {
+          if (assignment.tag === this.currenTag) {
+            return true
+          }
+        })
+      }
     },
   },
 }
