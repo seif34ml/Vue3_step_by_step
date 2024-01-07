@@ -1,12 +1,13 @@
 <template>
-  <completed-assignment
-    @toggleAssignment="toggleAssignment"
-    :assignments="assignments.filter((assignment) => assignment.complete)"
-  />
   <incompleted-assignment
     @toggleAssignment="toggleAssignment"
     :assignments="assignments.filter((assignment) => !assignment.complete)"
   />
+  <completed-assignment
+    @toggleAssignment="toggleAssignment"
+    :assignments="assignments.filter((assignment) => assignment.complete)"
+  />
+
   <create-assignment @addAssignment="addAssignment" />
 </template>
 

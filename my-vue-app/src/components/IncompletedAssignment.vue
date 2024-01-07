@@ -1,10 +1,6 @@
 <template>
   <section v-show="assignments.length">
-    <Tags
-      @change="currentTag = tag"
-      :currentTag="currentTag"
-      :assignments="assignments"
-    />
+    <Tags v-model:currentTag="currentTag" :assignments="assignments" />
     <!-- using v-show that dynamically test the v-show if true then display -->
     <h2 class="font-bold mb-2">InComplete</h2>
 
@@ -44,11 +40,22 @@ export default {
       if (this.currentTag == 'all') {
         return this.assignments
       } else {
-        return this.assignments.filter((assignment) => {
-          if (assignment.tag === this.currentTag) {
-            return true
-          }
-        })
+        if (
+          this.assignments.filter((assignment) => {
+            if (assignment.tag === this.currentTag) {
+              return true
+            }
+          }).length > 0
+        ) {
+          return this.assignments.filter((assignment) => {
+            if (assignment.tag === this.currentTag) {
+              return true
+            }
+          })
+        } else {
+          this.currentTag = 'all'
+          return this.assignments
+        }
       }
     },
   },

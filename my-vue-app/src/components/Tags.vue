@@ -7,7 +7,7 @@
       ]"
       v-for="(tag, index) in tags"
       :key="index"
-      @click="$emit('change', tag)"
+      @click="$emit('update:currentTag', tag)"
     >
       {{ tag }}
     </span>
