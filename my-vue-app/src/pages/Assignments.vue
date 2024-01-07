@@ -11,9 +11,9 @@
 </template>
 
 <script>
-import CompletedAssignment from './ComputedAssignment.vue'
-import CreateAssignment from './CreateAssignment.vue'
-import IncompletedAssignment from './IncompletedAssignment.vue'
+import CompletedAssignment from '../components/CompletedAssignment.vue'
+import CreateAssignment from '../components/CreateAssignment.vue'
+import IncompletedAssignment from '../components/IncompletedAssignment.vue'
 export default {
   components: { CompletedAssignment, IncompletedAssignment, CreateAssignment },
   name: 'Assignments',
