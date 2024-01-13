@@ -1,22 +1,17 @@
 <script>
 import { RouterLink, RouterView } from 'vue-router'
-
+import TheHeader from './components/TheHeader.vue'
 export default {
   mounted() {
     console.log(this.$route.name)
   },
+  components: { TheHeader },
 }
 </script>
 
 <template>
   <div>
-    <div class="flex justify-center items-center my-4">
-      <router-link class="mx-2" :to="{ path: `/homemmm` }">
-        Welcome
-      </router-link>
-      <router-link class="mx-2" to="/abouthhh">About Us</router-link>
-      <router-link class="mx-2" to="/assignments">Assignments</router-link>
-    </div>
+    <TheHeader />
     <div class="flex justify-center">
       <a href="https://vitejs.dev" target="_blank">
         <img src="/vite.svg" class="logo" alt="Vite logo" />
