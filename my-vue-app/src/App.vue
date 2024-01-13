@@ -5,7 +5,7 @@ export default {
   mounted() {
     console.log(this.$route.name)
   },
-  components: { TheHeader },
+  components: { TheHeader }, //single use component
 }
 </script>
 
