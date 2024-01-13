@@ -1,5 +1,5 @@
 <template>
-  <div class="flex justify-center gap-2 my-4">
+  <div class="flex justify-center gap-2 my-4 mb-8">
     <span
       :class="[
         { 'block p-2 border': true },

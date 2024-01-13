@@ -1,14 +1,16 @@
-<script setup>
-// import Home from './pages/Home.vue'
+<script>
 import { RouterLink, RouterView } from 'vue-router'
+
+export default {
+  mounted() {
+    console.log(this.$route.name)
+  },
+}
 </script>
 
 <template>
   <div>
-    <div
-      class="flex justify-between items-center"
-      style="justify-content: space-between;"
-    >
+    <div class="flex justify-center items-center my-4">
       <router-link class="mx-2" :to="{ path: `/homemmm` }">
         Welcome
       </router-link>
@@ -24,6 +26,9 @@ import { RouterLink, RouterView } from 'vue-router'
       </a>
     </div>
   </div>
+  <h1 class="font-black text-xl capitalize w-full text-center mt-8 mb-8">
+    {{ $route.name }}
+  </h1>
   <router-view></router-view>
 </template>
 
