@@ -1,16 +1,28 @@
 <script setup>
 import { ref } from 'vue'
 import MainItem from '../components/MainItem.vue'
-
+import { localStorage } from '../composables/localStorage'
 defineProps({
   msg: String,
 })
 
 const count = ref(0)
+const name = ref('')
+
+const [setName, getName] = localStorage()
 </script>
 
 <template>
   <h1>Homepage message: {{ msg }}</h1>
+
+  <input
+    v-model="name"
+    @input="setName(name)"
+    type="text"
+    placeholder="add your name "
+  />
+  <button @click="console.log(getName())" type="submit">submit</button>
+
   <main-item>
     <template #icon>
       <img
