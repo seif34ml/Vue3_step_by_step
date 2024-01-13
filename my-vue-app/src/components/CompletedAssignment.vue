@@ -1,6 +1,6 @@
 <template>
   <section>
-    <Tags v-model:currentTag="currentTag" :assignments="assignments" />
+    <Tags v-model:currentTag="data.currentTag" :assignments="assignments" />
     <!-- using v-show that dynamically test the v-show if true then display -->
     <slot />
     <ul class="mb-4">
@@ -22,48 +22,37 @@
     </ul>
   </section>
 </template>
-
-<script>
+<script setup lang="ts">
+import { defineProps, ref, computed } from 'vue'
 import Tags from './Tags.vue'
 
-export default {
-  name: 'incompletedAssignment',
-  components: { Tags },
-  props: { assignments: Array },
-  data() {
-    return {
-      currentTag: 'all',
-    }
-  },
+const props = defineProps(['assignments'])
 
-  computed: {
-    tags() {
-      return ['all', ...new Set(this.assignments.map((a) => a.tag))]
-    },
-    getFilteredAssignment() {
-      if (this.currentTag == 'all') {
-        return this.assignments
-      } else {
-        if (
-          this.assignments.filter((assignment) => {
-            if (assignment.tag === this.currentTag) {
-              return true
-            }
-          }).length > 0
-        ) {
-          return this.assignments.filter((assignment) => {
-            if (assignment.tag === this.currentTag) {
-              return true
-            }
-          })
-        } else {
-          this.currentTag = 'all'
-          return this.assignments
-        }
-      }
-    },
-  },
-}
+const data = ref({
+  currentTag: 'all',
+})
+
+const tags = computed(() => [
+  'all',
+  ...new Set(props.assignments.map((a: any) => a.tag)),
+])
+
+const getFilteredAssignment = computed(() => {
+  if (data.value.currentTag === 'all') {
+    return props.assignments
+  } else {
+    const filteredAssignments = props.assignments.filter((assignment: any) => {
+      return assignment.tag === data.value.currentTag
+    })
+
+    if (filteredAssignments.length > 0) {
+      return filteredAssignments
+    } else {
+      data.value.currentTag = 'all'
+      return props.assignments
+    }
+  }
+})
 </script>
 
 <style></style>

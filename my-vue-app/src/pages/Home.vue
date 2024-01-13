@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { ref } from 'vue'
 import MainItem from '../components/MainItem.vue'
 import { localStorage } from '../composables/localStorage'

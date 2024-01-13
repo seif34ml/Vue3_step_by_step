@@ -14,18 +14,18 @@
   </div>
 </template>
 
-<script>
-export default {
-  props: {
-    currentTag: String,
-    assignments: Array,
-  },
-  computed: {
-    tags() {
-      return ['all', ...new Set(this.assignments.map((a) => a.tag))]
-    },
-  },
-}
+<script setup lang="ts">
+import { PropType, ref, computed } from 'vue'
+
+const props = defineProps({
+  currentTag: String,
+  assignments: Array as PropType<Array<any>>,
+})
+
+const tags = computed(() => [
+  'all',
+  ...new Set(props.assignments.map((a) => a.tag)),
+])
 </script>
 
 <style></style>

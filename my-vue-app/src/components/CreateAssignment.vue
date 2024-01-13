@@ -5,27 +5,23 @@
       name="assignment"
       id="assignment"
       placeholder="enter your assignment"
-      v-model="assignmentText"
+      v-model="data.assignmentText"
     />
     <input type="submit" value="Add" @click="addAssignment" />
   </div>
 </template>
 
-<script>
-export default {
-  name: 'CreateAssignment',
-  data() {
-    return {
-      assignmentText: '',
-    }
-  },
+<script setup lang="ts">
+import { PropType, reactive, ref } from 'vue'
 
-  methods: {
-    addAssignment() {
-      console.log('hj')
-      this.$emit('addAssignment', this.assignmentText)
-    },
-  },
+const data = reactive({
+  assignmentText: '',
+})
+
+const emit = defineEmits(['addAssignment'])
+const addAssignment = () => {
+  console.log('hj')
+  emit('addAssignment', data.assignmentText)
 }
 </script>
 

@@ -2,7 +2,9 @@
   <div class="flex justify-between w-full px-[20%]">
     <incompleted-assignment
       @toggleAssignment="toggleAssignment"
-      :assignments="assignments.filter((assignment) => !assignment.complete)"
+      :assignments="
+        data.assignments.filter((assignment) => !assignment.complete)
+      "
       class="w-1/2 flex flex-col justify-start items-center border border-gray rounded-lg mr-5"
     >
       <h2 class="font-bold mb-4">InComplete</h2>
@@ -17,87 +19,86 @@
 
     <completed-assignment
       @toggleAssignment="toggleAssignment"
-      :assignments="assignments.filter((assignment) => assignment.complete)"
+      :assignments="
+        data.assignments.filter((assignment) => assignment.complete)
+      "
       class="w-1/2 flex flex-col justify-start items-center border border-gray rounded-lg"
     >
       <h2 class="font-bold mb-4">completed</h2>
     </completed-assignment>
   </div>
 </template>
-
-<script>
+<script setup lang="ts">
+import { onMounted, reactive } from 'vue'
 import CompletedAssignment from '../components/CompletedAssignment.vue'
 import CreateAssignment from '../components/CreateAssignment.vue'
 import IncompletedAssignment from '../components/IncompletedAssignment.vue'
-export default {
-  components: { CompletedAssignment, IncompletedAssignment, CreateAssignment },
-  name: 'Assignments',
 
-  data() {
-    return {
-      assignments: [],
+const data = reactive({
+  assignments: [],
+})
+
+onMounted(async () => {
+  await fetchAssignments()
+})
+
+const fetchAssignments = async () => {
+  try {
+    const response = await fetch(
+      'https://65a27ee042ecd7d7f0a7b641.mockapi.io/Vue3/assignments',
+    )
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch assignments')
     }
-  },
-  async mounted() {
-    await this.fetch()
-  },
-  methods: {
-    async fetch() {
-      try {
-        const response = await fetch(
-          'https://65a27ee042ecd7d7f0a7b641.mockapi.io/Vue3/assignments',
-        )
 
-        if (!response.ok) {
-          throw new Error('Failed to fetch assignments')
-        }
+    const responseData = await response.json()
+    data.assignments = responseData
+    console.log(data.assignments)
+  } catch (error) {
+    console.error('Error fetching assignments:', error)
+  }
+}
 
-        const data = await response.json()
-        this.assignments = data
-        console.log(this.assignments)
-      } catch (error) {
-        console.error('Error fetching assignments:', error)
-      }
-    },
-    toggleAssignment(assignment) {
-      console.log(assignment, this.assignments)
-      this.assignments.forEach(assign, (index) => {
-        if (assign.id == assignment.id) {
-          this.assignments[index].complete = !this.assignments[index].complete
-        }
-      })
-    },
-    addAssignment(name) {
-      const assignment = {
-        name: name,
-        id: this.assignments.length + 1,
-        complete: false,
-      }
+const toggleAssignment = (assignment) => {
+  console.log(assignment, data.assignments)
+  data.assignments.forEach((assign, index) => {
+    if (assign.id === assignment.id) {
+      data.assignments[index].complete = !data.assignments[index].complete
+    }
+  })
+}
 
-      fetch('https://65a27ee042ecd7d7f0a7b641.mockapi.io/Vue3/assignments', {
+const addAssignment = async (name) => {
+  const assignment = {
+    name: name,
+    id: data.assignments.length + 1,
+    complete: false,
+  }
+
+  try {
+    const response = await fetch(
+      'https://65a27ee042ecd7d7f0a7b641.mockapi.io/Vue3/assignments',
+      {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(assignment),
-      })
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error('Failed to add assignment')
-          }
-          return response.json()
-        })
-        .then((data) => {
-          console.log('Assignment added:', data)
-          this.fetch()
-          // Handle the response data as needed
-        })
-        .catch((error) => {
-          console.error('Error adding assignment:', error)
-        })
-    },
-  },
-  computed: {},
+      },
+    )
+
+    if (!response.ok) {
+      throw new Error('Failed to add assignment')
+    }
+
+    const responseData = await response.json()
+    console.log('Assignment added:', responseData)
+    fetchAssignments()
+    // Handle the response data as needed
+  } catch (error) {
+    console.error('Error adding assignment:', error)
+  }
 }
 </script>
 
