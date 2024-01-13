@@ -21,6 +21,7 @@
         />
       </li>
     </ul>
+    <slot name="create-assignment"></slot>
   </section>
 </template>
 

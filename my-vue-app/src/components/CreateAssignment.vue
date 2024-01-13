@@ -1,15 +1,13 @@
 <template>
   <div>
-    <form action="submit">
-      <input
-        type="text"
-        name="assignment"
-        id="assignment"
-        placeholder="enter your assignment"
-        v-model="assignmentText"
-      />
-      <input type="submit" value="Add" @submit.prevent="addAssignment" />
-    </form>
+    <input
+      type="text"
+      name="assignment"
+      id="assignment"
+      placeholder="enter your assignment"
+      v-model="assignmentText"
+    />
+    <input type="submit" value="Add" @click="addAssignment" />
   </div>
 </template>
 
@@ -24,6 +22,7 @@ export default {
 
   methods: {
     addAssignment() {
+      console.log('hj')
       this.$emit('addAssignment', this.assignmentText)
     },
   },
