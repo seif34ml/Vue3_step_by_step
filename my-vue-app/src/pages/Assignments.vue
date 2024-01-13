@@ -7,6 +7,7 @@
     >
       <h2 class="font-bold mb-4">InComplete</h2>
       <template #create-assignment>
+        <!--named slot -->
         <create-assignment
           class="my-4 border border-gray py-2 px-4"
           @addAssignment="addAssignment"
